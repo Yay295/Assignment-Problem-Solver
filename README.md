@@ -39,7 +39,7 @@ __table still under construction__
 | [HungarianAlgorithm.com]  | ?          | July 15, 2018 | Pass   | Pass   | Pass   | ?     |
 | [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
 | Lantao Liu                | C++        | June 18, 2013 | Pass   | Fail   | Fail   |       |
-| [maandree]                | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   |       |
+| [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   |       |
 | [saebyn]                  | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.5   |
 | [University of Melbourne] | JavaScript | July 15, 2018 | Fail   | Fail   | Fail   |       |
 | [Vamsi Kundeti]           | C++        | Dec. 20, 2008 | ?      | Fail   | Fail   |       |
@@ -60,7 +60,7 @@ The [University of Melbourne] code doesn't actually solve it for you, but guides
 [HungarianAlgorithm.com]: http://hungarianalgorithm.com/solve.php
 [Kevin L. Stern]: https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/optimization/HungarianAlgorithm.java
 [Lantao Liu]: http://robotics.usc.edu/~lantao/codes/hungarian.php
-[maandree]: https://github.com/maandree/hungarian-algorithm-n3
+[Mattias Andrée]: https://github.com/maandree/hungarian-algorithm-n3
 [saebyn]: https://github.com/saebyn/munkres-cpp
 [University of Melbourne]: http://www.ifors.ms.unimelb.edu.au/tutorial/hungarian/welcome_frame.html
 [Vamsi Kundeti]: https://launchpad.net/lib-bipartite-match
