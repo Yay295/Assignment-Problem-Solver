@@ -38,7 +38,7 @@ __table still under construction__
 | [dlib]                    | C++        | Oct. 10, 2016 | Pass   | Fail   | Fail   |       |
 | [HungarianAlgorithm.com]  | ?          | July 15, 2018 | Pass   | Pass   | Pass   | ?     |
 | [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
-| [Lantao Liu]              | C++        | June 18, 2013 | Pass   | Fail   | Fail   |       |
+| Lantao Liu                | C++        | June 18, 2013 | Pass   | Fail   | Fail   |       |
 | [maandree]                | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   |       |
 | [saebyn]                  | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.5   |
 | [University of Melbourne] | JavaScript | July 15, 2018 | Fail   | Fail   | Fail   |       |
@@ -48,6 +48,12 @@ __table still under construction__
 ### Notes
 
 Although the [HungarianAlgorithm.com] implementation passed my tests, I did not time it beacuse it is a webpage, and the network tranfer times would have dwarfed any actual calculation times. Also, it only allows matrices up to 10x10.
+
+Lantao Liu's code didn't compile until making modifications to `Matrix.h`. Its original source was http://robotics.usc.edu/~lantao/codes/hungarian.php, but I can no-longer find it online. Lantao Liu has a website at http://iurobotics.net/lantaoliu.html.
+
+The [University of Melbourne] code doesn't actually solve it for you, but guides you along to a solution. Unfortunately, it's so broken that it won't let you reach a solution in many cases.
+
+[Vamsi Kundeti]'s code passed my first test without crashing, but I wasn't able to determine what result it found. The code is a mess, and since it crashed on the second and third test I didn't bother checking the first more closely.
 
 [Brian M. Clapper]: https://github.com/bmc/munkres
 [dlib]: http://dlib.net/
