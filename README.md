@@ -66,12 +66,12 @@ These times are all averages, displayed in seconds. The same code was used to te
 
 | Author                   | Language | 10,000 50x50 | 100 250x250 | 10 1000x1000 |
 |--------------------------|----------|--------------|-------------|--------------|
-| [Brian M. Clapper]       | Python   | 0.0873396668 |             |              |
-| [John Weaver]            | C++      | 0.0007233    | 0.23719     | 61.9894      |
+| [Brian M. Clapper]       | Python   | 0.0873396668 | 15.33067510 | 1277.4927580 |
+| [John Weaver]            | C++      | 0.0007233    |  0.23719    |   61.9894    |
 | [Kevin L. Stern]         | Java     |              |             |              |
-| [Mattias Andrée]         | C        | 0.001264     | 0.21        | 17.2625      |
-| [Paolo Bonzini]          | C        | 0.002141     | 0.349062    | 31.679688    |
-| Yay295                   | C++      | 0.0007146    | 0.20982     | 35.546       |
+| [Mattias Andrée]         | C        | 0.001264     |  0.21       |   17.2625    |
+| [Paolo Bonzini]          | C        | 0.002141     |  0.349062   |   31.679688  |
+| Yay295                   | C++      | 0.0007146    |  0.20982    |   35.546     |
 
 [Brian M. Clapper]: https://github.com/bmc/munkres
 [dlib]: http://dlib.net/
