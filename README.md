@@ -34,7 +34,7 @@ __table still under construction__
 
 | Author                    | Language   | Version Used  | Test 1 | Test 2 | Test 3 | Speed |
 |---------------------------|------------|---------------|--------|--------|--------|-------|
-| [Brian M. Clapper]        | Python     | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
+| [Brian M. Clapper]        | Python     | June 27, 2017 | Pass   | Pass   | Pass   |       |
 | [dlib]                    | C++        | July 13, 2018 | Pass   | Fail   | Fail   |       |
 | [HungarianAlgorithm.com]  | ?          | July 15, 2018 | Pass   | Pass   | Pass   | ?     |
 | [John Weaver]             | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.8   |
@@ -66,7 +66,7 @@ These times are all averages, displayed in seconds. The same code was used to te
 
 | Author                   | Language | 10,000 50x50 | 100 250x250 | 10 1000x1000 |
 |--------------------------|----------|--------------|-------------|--------------|
-| [Brian M. Clapper]       | Python   |              |             |              |
+| [Brian M. Clapper]       | Python   | 0.0873396668 |             |              |
 | [John Weaver]            | C++      | 0.0007233    | 0.23719     | 61.9894      |
 | [Kevin L. Stern]         | Java     |              |             |              |
 | [Mattias Andrée]         | C        | 0.001264     | 0.21        | 17.2625      |
