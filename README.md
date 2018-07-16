@@ -41,6 +41,7 @@ __table still under construction__
 | [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
 | Lantao Liu                | C++        | June 18, 2013 | Pass   | Fail   | Fail   |       |
 | [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   | 1.0   |
+| [Paolo Bonzini]           | C          | June  9, 2017 | Pass   | Pass   | Pass   | 0.8   |
 | [University of Melbourne] | JavaScript | July 15, 2018 | Fail   | Fail   | Fail   |       |
 | [Vamsi Kundeti]           | C++        | Dec. 20, 2008 | ?      | Fail   | Fail   |       |
 | Yay295                    | C++        | Mar.  6, 2018 | Pass   | Pass   | Pass   | 1.0   |
@@ -52,6 +53,8 @@ Although the [HungarianAlgorithm.com] implementation passed my tests, I did not 
 [John Weaver]'s code was originally written without templates, and then poorly ported to use templates. It had to be modified in order to correct those mistakes so that it could compile.
 
 Lantao Liu's code didn't compile until making modifications to `Matrix.h`. Its original source was http://robotics.usc.edu/~lantao/codes/hungarian.php, but I can no longer find it online. Lantao Liu has a website at http://iurobotics.net/lantaoliu.html.
+
+[Paolo Bonzini]'s code is an updated fork of [Mattias Andrée]'s code. Considering it's slower and emits more warnings, I'm not sure it was a worthwhile update.
 
 The [University of Melbourne] code doesn't actually solve it for you, but guides you along to a solution. Unfortunately, it's so broken that it won't let you reach a solution in many cases.
 
@@ -67,6 +70,7 @@ These times are all averages, displayed in seconds. The same code was used to te
 | [John Weaver]            | C++      | 0.0007233    | 0.23719     | 61.9894      |
 | [Kevin L. Stern]         | Java     |              |             |              |
 | [Mattias Andrée]         | C        | 0.001264     | 0.21        | 17.2625      |
+| [Paolo Bonzini]          | C        | 0.002141     | 0.349062    | 31.679688    |
 | Yay295                   | C++      | 0.0007168    | 0.21077     | 35.546       |
 
 [Brian M. Clapper]: https://github.com/bmc/munkres
@@ -76,5 +80,6 @@ These times are all averages, displayed in seconds. The same code was used to te
 [Kevin L. Stern]: https://github.com/KevinStern/software-and-algorithms/blob/master/src/main/java/blogspot/software_and_algorithms/stern_library/optimization/HungarianAlgorithm.java
 [Lantao Liu]: http://robotics.usc.edu/~lantao/codes/hungarian.php
 [Mattias Andrée]: https://github.com/maandree/hungarian-algorithm-n3
+[Paolo Bonzini]: https://github.com/bonzini/hungarian-algorithm-n3
 [University of Melbourne]: http://www.ifors.ms.unimelb.edu.au/tutorial/hungarian/welcome_frame.html
 [Vamsi Kundeti]: https://launchpad.net/lib-bipartite-match
