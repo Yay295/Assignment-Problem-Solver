@@ -8,7 +8,7 @@
 #include "APS.h"
 
 // The int type to use to hold the matrix cost data.
-typedef unsigned char D_TYPE;
+typedef size_t D_TYPE;
 
 const size_t THOUSAND = 1000;
 const size_t MILLION = THOUSAND * THOUSAND;
@@ -51,7 +51,7 @@ void printMatrix(const size_t width, const size_t height, std::ostream & out = s
 // Calculates the result of `todo` `width` x `height` matrices and averages
 // their execution time.
 void speedTest(const size_t todo, const size_t width, const size_t height) {
-	std::cout << "Speed Test:\n\n";
+	std::cout << "== Speed Test (" << todo << ' ' << width << 'x' << height << ") ==\n";
 
 	std::random_device rd;
 	std::mt19937 mt(rd());
@@ -66,11 +66,12 @@ void speedTest(const size_t todo, const size_t width, const size_t height) {
 
 		//std::cout << '.';
 
-		if (total < 100 && total % 12 == 0) std::cout << '\n' << total / 12 << " Dozen\n";
-		else if (total < THOUSAND && total % 100 == 0) std::cout << '\n' << total / 100 << " Hundred\n";
-		else if (total < MILLION && total % THOUSAND == 0) std::cout << '\n' << total / THOUSAND << " Thousand\n";
-		else if (total < BILLION && total % MILLION == 0) std::cout << '\n' << total / MILLION << " Million\n";
-		else if (total % BILLION == 0) std::cout << '\n' << total / BILLION << " Billion\n";
+		if (total < 12) std::cout << '\n' << total;
+		else if (total < 100 && total % 12 == 0) std::cout << '\n' << total / 12 << " Dozen";
+		else if (total < THOUSAND && total % 100 == 0) std::cout << '\n' << total / 100 << " Hundred";
+		else if (total < MILLION && total % THOUSAND == 0) std::cout << '\n' << total / THOUSAND << " Thousand";
+		else if (total < BILLION && total % MILLION == 0) std::cout << '\n' << total / MILLION << " Million";
+		else if (total % BILLION == 0) std::cout << '\n' << total / BILLION << " Billion";
 
 		//printMatrix(width, height);
 
@@ -85,7 +86,7 @@ void speedTest(const size_t todo, const size_t width, const size_t height) {
 		//fout << width << ',' << end - start << '\n';
 	}
 
-	std::cout << '\n' << (totalTime / double(todo)) / CLOCKS_PER_SEC << "s Average Time\n\n";
+	std::cout << "\n\n" << (totalTime / double(todo)) / CLOCKS_PER_SEC << "s Average Time\n\n";
 }
 
 // This test iterates through every unique matrix from a matrix of size
@@ -94,14 +95,22 @@ void speedTest(const size_t todo, const size_t width, const size_t height) {
 void exhaustiveTest(const size_t minWidth, const size_t minHeight, const size_t maxWidth, const size_t maxHeight) {
 	const size_t outWidth = 1 + std::to_string(size_t(std::pow(maxWidth * maxHeight, maxWidth * maxHeight))).length();
 
-	std::cout << "Complete Test:\n\n";
-	std::cout << "Height   Width   Tests     Time(s)\n";
+	std::cout << "== Exhaustive Test ==\n\n";
+	std::cout << "Height   Width   Tests     Time (s)\n";
 
 	for (size_t height = minHeight; height <= maxHeight; ++height) {
 		for (size_t width = std::max(height, minWidth); width <= maxWidth; ++width) {
 			const size_t maxValue = width * height - 1;
-
 			values.resize(maxValue + 1);
+
+			std::cout.width(9);
+			std::cout << std::left << height;
+			std::cout.width(8);
+			std::cout << std::left << width;
+			std::cout.width(outWidth);
+			std::cout.precision(0);
+			std::cout << std::left << std::fixed << std::pow(width * height, width * height);
+			std::cout.flush();
 
 			clock_t totalTime = 0;
 			do {
@@ -113,13 +122,6 @@ void exhaustiveTest(const size_t minWidth, const size_t minHeight, const size_t 
 				totalTime += end - start;
 			} while (incrementValues(maxValue));
 
-			std::cout.width(9);
-			std::cout << std::left << height;
-			std::cout.width(8);
-			std::cout << std::left << width;
-			std::cout.width(outWidth);
-			std::cout.precision(0);
-			std::cout << std::left << std::fixed << std::pow(width * height, width * height);
 			std::cout << totalTime / double(CLOCKS_PER_SEC) << '\n';
 		}
 	}
@@ -127,6 +129,8 @@ void exhaustiveTest(const size_t minWidth, const size_t minHeight, const size_t 
 
 // Tests specific matrices.
 void specificTest() {
+	std::cout << "== Specific Tests ==\n\n";
+
 	std::vector<std::vector<unsigned char>> matrices = {
 		{0, 0,
 		 0, 0},
@@ -155,9 +159,11 @@ int main() {
 	/*std::ofstream fout("times.csv");
 	std::ofstream matrix("matrix.csv");*/
 
-	speedTest(1000, 50, 50);
+	speedTest(10000, 50, 50);
+	speedTest(100, 250, 250);
+	speedTest(10, 1000, 1000);
 	//exhaustiveTest(1, 1, 3, 3);
-	//specificTest();
+	specificTest();
 
 	std::cout << "\a\aPress 'Enter' to exit";
 	std::cin.ignore();
