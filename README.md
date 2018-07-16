@@ -35,7 +35,7 @@ __table still under construction__
 | Author                    | Language   | Version Used  | Test 1 | Test 2 | Test 3 | Speed |
 |---------------------------|------------|---------------|--------|--------|--------|-------|
 | [Brian M. Clapper]        | Python     | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
-| [dlib]                    | C++        | Oct. 10, 2016 | Pass   | Fail   | Fail   |       |
+| [dlib]                    | C++        | July 13, 2018 | Pass   | Fail   | Fail   |       |
 | [HungarianAlgorithm.com]  | ?          | July 15, 2018 | Pass   | Pass   | Pass   | ?     |
 | [John Weaver]             | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.8   |
 | [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
