@@ -1,6 +1,6 @@
 /*
 Assignment Problem Solver - Coded by Yay295
-Last Updated February 24, 2018
+Last Updated July 16, 2018
 
 
 Usage:
@@ -186,27 +186,25 @@ class APSO {
 
 	template<typename T>
 	void rowReduce(V<T> & values) {
-		size_t column;
-
+		size_t row, column;
 		T min;
 
+		for (row = 0; row < height; ++row) { // traverse rows
+			T * rowPtr = &values[row*width];
 
-		for (size_t row = 0; row < height; ++row) { // traverse rows
-			const size_t rowCalc = row * width;
-
-			min = values[rowCalc];
+			min = rowPtr[0];
 
 			if (min) {
 				for (column = 1; column < width; ++column) { // find smallest number in row
-					if (values[rowCalc+column] < min) {
-						min = values[rowCalc+column];
+					if (rowPtr[column] < min) {
+						min = rowPtr[column];
 						if (!min) break;
 					}
 				}
 
 				if (min) {
 					for (column = 0; column < width; ++column) { // subtract all by that num
-						values[rowCalc+column] -= min;
+						rowPtr[column] -= min;
 					}
 				}
 			}
@@ -216,12 +214,10 @@ class APSO {
 
 	template<typename T>
 	void columnReduce(V<T> & values) {
-		size_t row;
-
+		size_t column, row;
 		T min;
 
-
-		for (size_t column = 0; column < width; ++column) { // traverse columns
+		for (column = 0; column < width; ++column) { // traverse columns
 			min = values[column];
 
 			if (min) {
@@ -257,12 +253,8 @@ class APSO {
 		4) Else Return
 		*/
 
-
 		V<char> usedRows(width, false), usedColumns(width, false);
-
-
 		size_t row = -1, column;
-
 
 		while (true) {
 			V<char> forStep2(height, false);
@@ -271,11 +263,10 @@ class APSO {
 
 			while (++row < height) {
 				if (!usedRows[row]) {
-					const size_t rowCalc = row * width;
-
+					const T * rowPtr = &values[row*width];
 
 					for (column = 0; column < width; ++column) { // skipping step 2
-						if (!usedColumns[column] && !values[rowCalc+column]) {
+						if (!usedColumns[column] && !rowPtr[column]) {
 							results.emplace_back(column,row);
 
 							usedColumns[column] = true; usedRows[row] = true;
@@ -286,13 +277,11 @@ class APSO {
 						}
 					}
 
-
 					forStep2[row] = true;
 
 					for (column = 0; column < width; ++column) { // using step 2
-						if (!values[rowCalc+column]) {
+						if (!rowPtr[column]) {
 							results.emplace_back(column,row);
-
 
 							if (valueSwap(values, forStep2, usedColumns, column, row)) { // Step 2
 								usedRows[row] = true;
@@ -302,16 +291,13 @@ class APSO {
 								else return; // Step 4
 							}
 
-
 							results.pop_back();
 						}
 					}
 				}
 			}
 
-
 			drawLines(values);
-
 			row = -1;
 		}
 	}
@@ -348,13 +334,14 @@ class APSO {
 		if (conflict == nullptr) return false;
 
 
-		size_t column, rowCalc = conflict->y * width;
+		size_t column;
+		const T * rowPtr = &values[conflict->y*width];
 
 		visitedRows[conflict->y] = true;
 
 
 		for (column = 0; column < width; ++column) { // find another zero in the same row, in an unused column
-			if (!usedColumns[column] && !values[rowCalc+column]) {
+			if (!usedColumns[column] && !rowPtr[column]) {
 				conflict->x = column;
 				usedColumns[column] = true;
 				return true;
@@ -364,7 +351,7 @@ class APSO {
 		// OR
 
 		for (column = 0; column < width; ++column) { // find another zero in the same row, in a used column
-			if (usedColumns[column] && !values[rowCalc+column]) {
+			if (usedColumns[column] && !rowPtr[column]) {
 				conflict->x = column;
 
 				if (valueSwap(values, visitedRows, usedColumns, column, conflict->y))
@@ -406,30 +393,23 @@ class APSO {
 		3) Repeat step 2 if a new line is drawn/undrawn.
 		*/
 
-
 		V<char> coveredRows(height, false), coveredColumns(width, false);
-
 		bool newLine;
-
 
 		for (const auto & result : results) // Modified Step 1
 			coveredRows[result.y] = true;
 
-
 		do {
 			newLine = false;
 
-
 			for (size_t row = 0; row < height; ++row) { // Modified Step 2
 				if (!coveredRows[row]) {
-					const size_t rowCalc = row * width;
+					const T * rowPtr = &values[row*width];
 
 					for (size_t column = 0; column < width; ++column) {
-						if (!coveredColumns[column] && !values[rowCalc+column]) {
+						if (!coveredColumns[column] && !rowPtr[column]) {
 							coveredColumns[column] = true; // a
-
 							newLine = true;
-
 
 							for (const auto & result : results) {
 								if (result.x == column) { // b
@@ -445,42 +425,41 @@ class APSO {
 			}
 		} while (newLine); // Modified Step 3
 
-
 		updateMatrix(values, coveredRows, coveredColumns);
 	}
 
 
 	template<typename T>
 	void updateMatrix(V<T> & values, const V<char> & coveredRows, const V<char> & coveredColumns) {
-		size_t row, column, rowCalc;
-		T min = -1;
+		size_t row, column;
+		T * rowPtr, min = std::numeric_limits<T>::max();
 
 		for (row = 0; row < height; ++row) { // get smallest uncovered value
 			if (!coveredRows[row]) {
-				rowCalc = row * width;
+				rowPtr = &values[row*width];
 
 				for (column = 0; column < width; ++column)
-					if (!coveredColumns[column] && values[rowCalc+column] < min)
-						min = values[rowCalc+column];
+					if (!coveredColumns[column] && rowPtr[column] < min)
+						min = rowPtr[column];
 			}
 		}
 
 
 		for (row = 0; row < height; ++row) {
-			rowCalc = row * width;
+			rowPtr = &values[row*width];
 
 			if (coveredRows[row]) {
 				for (column = 0; column < width; ++column) {
 					if (coveredColumns[column]) { // add min to each doubly covered cell
-						T & val = values[rowCalc+column];
+						T & val = rowPtr[column];
 						val += min;
 						if (val < min) // prevent overflow by setting a cap
-							val = -1;
+							val = std::numeric_limits<T>::max();
 					}
 				}
 			} else {
 				for (column = 0; column < width; ++column) // subtract min from each uncovered cell
-					if (!coveredColumns[column]) values[rowCalc+column] -= min;
+					if (!coveredColumns[column]) rowPtr[column] -= min;
 			}
 		}
 	}
