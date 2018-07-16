@@ -28,23 +28,21 @@ While fairly simple, these three matrices each pose slight challenges that I ran
 
 Next, I ran a speed test (on the implementations that passed the first test), timing how long it took them to solve a certain number of random matrices of a given size. Due to difference in programming language and timing, these will not be exact, but I have tried to be as accurate as possible by timing the least amount of code possible (i.e. not timing the initialization of matrices). I have entered these times as relative to my own code (< 1.0 is slower, > 1.0 is faster).
 
-The Version Used is the date that the code I tested was last updated. Some of these have been updated since then, and I am working on re-testing them. Others have been tested more recently, but their code has not changed in some time.
-
-__table still under construction__
+The Version Used is the date that the code I tested was last updated. Some of these have been tested more recently, but their code has not changed since the date listed. If any of these are out of date, create an issue for it and I'll see about re-testing it.
 
 | Author                    | Language   | Version Used  | Test 1 | Test 2 | Test 3 | Speed |
 |---------------------------|------------|---------------|--------|--------|--------|-------|
-| [Brian M. Clapper]        | Python     | June 27, 2017 | Pass   | Pass   | Pass   | 0.0   |
+| [Brian M. Clapper]        | Python     | June 27, 2017 | Pass   | Pass   | Pass   | 0.01  |
 | [dlib]                    | C++        | July 13, 2018 | Pass   | Fail   | Fail   |       |
 | [HungarianAlgorithm.com]  | ?          | July 15, 2018 | Pass   | Pass   | Pass   | ?     |
-| [John Weaver]             | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.8   |
+| [John Weaver]             | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.50  |
 | [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
 | Lantao Liu                | C++        | June 18, 2013 | Pass   | Fail   | Fail   |       |
-| [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   | 1.0   |
-| [Paolo Bonzini]           | C          | June  9, 2017 | Pass   | Pass   | Pass   | 0.8   |
+| [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   | 0.69  |
+| [Paolo Bonzini]           | C          | June  9, 2017 | Pass   | Pass   | Pass   | 0.41  |
 | [University of Melbourne] | JavaScript | July 15, 2018 | Fail   | Fail   | Fail   |       |
 | [Vamsi Kundeti]           | C++        | Dec. 20, 2008 | ?      | Fail   | Fail   |       |
-| Yay295                    | C++        | Mar.  6, 2018 | Pass   | Pass   | Pass   | 1.0   |
+| Yay295                    | C++        | July 16, 2018 | Pass   | Pass   | Pass   | 1.00  |
 
 ### Notes
 
@@ -66,7 +64,7 @@ These times are all averages, displayed in seconds. The same code was used to te
 
 | Author                   | Language | 10,000 50x50 | 100 250x250 | 10 1000x1000 |
 |--------------------------|----------|--------------|-------------|--------------|
-| [Brian M. Clapper]       | Python   | 0.0873396668 | 15.33067510 | 1277.4927580 |
+| [Brian M. Clapper]       | Python   | 0.0873396668 | 15.3306751  | 1277.492758  |
 | [John Weaver]            | C++      | 0.0007233    |  0.23719    |   61.9894    |
 | [Kevin L. Stern]         | Java     |              |             |              |
 | [Mattias Andrée]         | C        | 0.001264     |  0.21       |   17.2625    |
