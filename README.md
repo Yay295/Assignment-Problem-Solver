@@ -40,7 +40,7 @@ __table still under construction__
 | [John Weaver]             | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.5   |
 | [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
 | Lantao Liu                | C++        | June 18, 2013 | Pass   | Fail   | Fail   |       |
-| [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   |       |
+| [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   | 1.0   |
 | [University of Melbourne] | JavaScript | July 15, 2018 | Fail   | Fail   | Fail   |       |
 | [Vamsi Kundeti]           | C++        | Dec. 20, 2008 | ?      | Fail   | Fail   |       |
 | Yay295                    | C++        | Mar.  6, 2018 | Pass   | Pass   | Pass   | 1.0   |
@@ -56,6 +56,18 @@ Lantao Liu's code didn't compile until making modifications to `Matrix.h`. Its o
 The [University of Melbourne] code doesn't actually solve it for you, but guides you along to a solution. Unfortunately, it's so broken that it won't let you reach a solution in many cases.
 
 [Vamsi Kundeti]'s code passed my first test without crashing, but I wasn't able to determine what result it found. The code is a mess, and since it crashed on the second and third test I didn't bother checking the first more closely.
+
+### Actual Times
+
+These times are all averages, displayed in seconds. The same code was used to test the C and C++ implementations.
+
+| Author                   | Language | 10,000 50x50 | 100 250x250 | 10 1000x1000 |
+|--------------------------|----------|--------------|-------------|--------------|
+| [Brian M. Clapper]       | Python   |              |             |              |
+| [John Weaver]            | C++      |              |             |              |
+| [Kevin L. Stern]         | Java     |              |             |              |
+| [Mattias Andrée]         | C        | 0.001264     | 0.21        | 17.2625      |
+| Yay295                   | C++      | 0.0007265    | 0.21102     | 35.546       |
 
 [Brian M. Clapper]: https://github.com/bmc/munkres
 [dlib]: http://dlib.net/
