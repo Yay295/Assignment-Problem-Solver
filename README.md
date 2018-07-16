@@ -69,7 +69,7 @@ These times are all averages, displayed in seconds. The same code was used to te
 | [Kevin L. Stern]         | Java     |              |             |              |
 | [Mattias Andrée]         | C        | 0.001264     |  0.21       |   17.2625    |
 | [Paolo Bonzini]          | C        | 0.002141     |  0.349062   |   31.679688  |
-| Yay295                   | C++      | 0.0007146    |  0.20982    |   35.546     |
+| Yay295                   | C++      | 0.0006636    |  0.13706    |   19.5977    |
 
 [Brian M. Clapper]: https://github.com/bmc/munkres
 [dlib]: http://dlib.net/
