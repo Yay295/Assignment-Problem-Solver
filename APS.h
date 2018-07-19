@@ -47,6 +47,7 @@ The first case will only occur if width < height.
 
 #include <vector>
 #include <type_traits>
+#include <numeric>
 
 
 #define V std::vector // This is undefined at the bottom.
@@ -76,13 +77,9 @@ class APSO {
 
 		if (newWidth >= newHeight) { // width >= height -> do not transpose matrix
 			if (std::is_signed<T>::value) {
-				const T max = std::numeric_limits<T>::max();
-				V<std::make_unsigned<T>::type> values;
-				values.reserve(nSize);
-
-				for (size_t i = 0; i < nSize; ++i)
-					values.push_back(newValues[i] + max);
-
+				constexpr T max = std::numeric_limits<T>::max();
+				V<std::make_unsigned<T>::type> values(nSize);
+				std::transform(newValues, newValues + nSize, values.begin(), [max](T x){return x + max;});
 				math(values, newWidth, newHeight, false);
 			} else math(V<T>(newValues, newValues + nSize), newWidth, newHeight, false);
 		} else math(transposeToUnsigned(newValues, newWidth, newHeight), newHeight, newWidth, true);
@@ -95,7 +92,7 @@ class APSO {
 	// given to it must already be in the form this class uses internally
 	// - a C++ vector of an unsigned integer type.
 	template<typename T>
-	APSO(V<T> & newValues, size_t newWidth, size_t newHeight) {
+	APSO(V<T> & newValues, const size_t newWidth, const size_t newHeight) {
 		static_assert(!std::numeric_limits<T>::is_signed, "The value type used for the APSO's special contructor must be unsigned.");
 
 		if (newWidth < newHeight) {
@@ -107,7 +104,7 @@ class APSO {
 	}
 
 	// Prints the results as a 2d matrix of 'O's and 'X's.
-	void printResults(std::ostream & out) {
+	void printResults(std::ostream & out) const {
 		for (size_t column = 0; column < width; ++column) {
 			for (size_t row = 0; row < height; ++row) {
 				bool assigned = false;
@@ -117,9 +114,9 @@ class APSO {
 						break;
 					}
 				}
-				std::cout << (assigned ? 'X' : 'O') << ' ';
+				out << (assigned ? 'X' : 'O') << ' ';
 			}
-			std::cout << '\n';
+			out << '\n';
 		}
 	}
 
@@ -127,7 +124,7 @@ class APSO {
 	// passed in because it is not stored anywhere. Its width and height are
 	// stored, so they do not have to be passed in again.
 	template<typename T>
-	T resultCost(const T * const values) {
+	T resultCost(const T * const values) const {
 		T cost = 0;
 		for (const auto & result : results)
 			cost += values[width*result.y+result.x];
@@ -141,7 +138,7 @@ class APSO {
 
 
 	template<typename T>
-	auto transposeToUnsigned(const T * const input, const size_t width, const size_t height) {
+	auto transposeToUnsigned(const T * const input, const size_t width, const size_t height) const {
 		// If the input values are signed, add their maximum possible (signed) value to each to
 		// ensure they are positive. Because they are being made unsigned, this operation will not
 		// cause overflow. Since this is a constexpr, it can be evaluated at compile time and
@@ -164,17 +161,12 @@ class APSO {
 		static_assert(!std::numeric_limits<T>::is_signed, "A signed value type was passed to the APSO's math() function.");
 
 		width = newWidth; height = newHeight;
-
 		results.reserve(height);
 
-
 		rowReduce(values);
-
 		if (width == height) columnReduce(values);
 
-
 		getResults(values);
-
 
 		// This is true if the matrix was flipped. Matrices are flipped
 		// if they are taller than they are wide. This improves speed and
@@ -185,7 +177,7 @@ class APSO {
 
 
 	template<typename T>
-	void rowReduce(V<T> & values) {
+	void rowReduce(V<T> & values) const {
 		size_t row, column;
 		T min;
 
@@ -213,7 +205,7 @@ class APSO {
 
 
 	template<typename T>
-	void columnReduce(V<T> & values) {
+	void columnReduce(V<T> & values) const {
 		size_t column, row;
 		T min;
 
@@ -253,7 +245,7 @@ class APSO {
 		4) Else Return
 		*/
 
-		V<char> usedRows(width, false), usedColumns(width, false);
+		V<char> usedRows(height, false), usedColumns(width, false);
 		size_t row = -1, column;
 
 		while (true) {
@@ -366,7 +358,7 @@ class APSO {
 
 
 	template<typename T>
-	void drawLines(V<T> & values) {
+	void drawLines(V<T> & values) const {
 		/*
 		This function uses the method detailed below. You can also watch a
 		lecture of it here: https://www.youtube.com/watch?v=BUGIhEecipE&t=895
@@ -430,7 +422,7 @@ class APSO {
 
 
 	template<typename T>
-	void updateMatrix(V<T> & values, const V<char> & coveredRows, const V<char> & coveredColumns) {
+	void updateMatrix(V<T> & values, const V<char> & coveredRows, const V<char> & coveredColumns) const {
 		size_t row, column;
 		T * rowPtr, min = std::numeric_limits<T>::max();
 
