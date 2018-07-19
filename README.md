@@ -32,23 +32,25 @@ The Version Used is the date that the code I tested was last updated. Some of th
 
 | Author                    | Language   | Version Used  | Test 1 | Test 2 | Test 3 | Speed |
 |---------------------------|------------|---------------|--------|--------|--------|-------|
-| [Brian M. Clapper]        | Python     | June 27, 2017 | Pass   | Pass   | Pass   | 0.01  |
+| [Brian M. Clapper]        | Python     | June 27, 2017 | Pass   | Pass   | Pass   |  0.01 |
 | [dlib]                    | C++        | July 13, 2018 | Pass   | Fail   | Fail   |       |
 | [HungarianAlgorithm.com]  | ?          | July 15, 2018 | Pass   | Pass   | Pass   | ?     |
-| [John Weaver]             | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   | 0.50  |
-| [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   |       |
+| [John Weaver]             | C++        | Mar. 27, 2016 | Pass   | Pass   | Pass   |  0.50 |
+| [Kevin L. Stern]          | Java       | Nov. 19, 2016 | Pass   | Pass   | Pass   | 18.13 |
 | Lantao Liu                | C++        | June 18, 2013 | Pass   | Fail   | Fail   |       |
-| [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   | 0.69  |
-| [Paolo Bonzini]           | C          | June  9, 2017 | Pass   | Pass   | Pass   | 0.41  |
+| [Mattias Andrée]          | C          | Apr. 24, 2014 | Pass   | Pass   | Pass   |  0.69 |
+| [Paolo Bonzini]           | C          | June  9, 2017 | Pass   | Pass   | Pass   |  0.41 |
 | [University of Melbourne] | JavaScript | July 15, 2018 | Fail   | Fail   | Fail   |       |
 | [Vamsi Kundeti]           | C++        | Dec. 20, 2008 | ?      | Fail   | Fail   |       |
-| Yay295                    | C++        | July 16, 2018 | Pass   | Pass   | Pass   | 1.00  |
+| Yay295                    | C++        | July 19, 2018 | Pass   | Pass   | Pass   |  1.00 |
 
 ### Notes
 
 Although the [HungarianAlgorithm.com] implementation passed my tests, I did not time it beacuse it is a webpage, and the network tranfer times would have dwarfed any actual calculation times. Also, it only allows matrices up to 10x10.
 
 [John Weaver]'s code was originally written without templates, and then poorly ported to use templates. It had to be modified in order to correct those mistakes so that it could compile.
+
+[Kevin L. Stern]'s code is incredibly fast, and I don't know why. I've already spent longer on this than I planned though, so I'm just going to present them as they are and maybe come back to this in the future.
 
 Lantao Liu's code didn't compile until making modifications to `Matrix.h`. Its original source was http://robotics.usc.edu/~lantao/codes/hungarian.php, but I can no longer find it online. Lantao Liu has a website at http://iurobotics.net/lantaoliu.html.
 
@@ -66,7 +68,7 @@ These times are all averages, displayed in seconds. The same code was used to te
 |--------------------------|----------|--------------|-------------|--------------|
 | [Brian M. Clapper]       | Python   | 0.0873396668 | 15.3306751  | 1277.492758  |
 | [John Weaver]            | C++      | 0.0007233    |  0.23719    |   61.9894    |
-| [Kevin L. Stern]         | Java     |              |             |              |
+| [Kevin L. Stern]         | Java     | 0.000093     |  0.002968   |    0.072743  |
 | [Mattias Andrée]         | C        | 0.001264     |  0.21       |   17.2625    |
 | [Paolo Bonzini]          | C        | 0.002141     |  0.349062   |   31.679688  |
 | Yay295                   | C++      | 0.0006636    |  0.13706    |   19.5977    |
