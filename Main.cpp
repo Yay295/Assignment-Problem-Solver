@@ -48,6 +48,34 @@ void printMatrix(const size_t width, const size_t height, std::ostream & out = s
 	out << '\n';
 }
 
+// Tests specific matrices.
+void specificTest() {
+	std::cout << "== Specific Tests ==\n\n";
+
+	std::vector<std::vector<unsigned char>> matrices = {
+		{0, 0,
+		 0, 0},
+
+		{0, 0, 0, 0,
+		 0, 0, 0, 0,
+		 0, 0, 0, 0,
+		 0, 0, 0, 1},
+
+		{0, 0, 0, 0, 0,
+		 0, 0, 0, 0, 0,
+		 0, 0, 1, 1, 1,
+		 0, 0, 1, 1, 1,
+		 0, 0, 1, 1, 1}
+	};
+
+	for (auto & matrix : matrices) {
+		APSO X(matrix.data(), size_t(sqrt(matrix.size())), size_t(sqrt(matrix.size())));
+		std::cout << "Results:\n";
+		X.printResults(std::cout);
+		std::cout << "Result Cost: " << size_t(X.resultCost(matrix.data())) << "\n\n";
+	}
+}
+
 // Calculates the result of `todo` `width` x `height` matrices and averages
 // their execution time.
 void speedTest(const size_t todo, const size_t width, const size_t height) {
@@ -93,7 +121,7 @@ void speedTest(const size_t todo, const size_t width, const size_t height) {
 // minWidth x minHeight filled with zeroes to a matrix of size
 // maxWidth x maxHeight filled with the value (maxWidth * maxHeight).
 void exhaustiveTest(const size_t minWidth, const size_t minHeight, const size_t maxWidth, const size_t maxHeight) {
-	const size_t outWidth = 1 + std::to_string(size_t(std::pow(maxWidth * maxHeight, maxWidth * maxHeight))).length();
+	const size_t outWidth = 2 + size_t(std::log10(size_t(std::pow(maxWidth * maxHeight, maxWidth * maxHeight))));
 
 	std::cout << "== Exhaustive Test ==\n\n";
 	std::cout << "Height   Width   Tests     Time (s)\n";
@@ -115,11 +143,17 @@ void exhaustiveTest(const size_t minWidth, const size_t minHeight, const size_t 
 			clock_t totalTime = 0;
 			do {
 				//printMatrix(width, height);
+				const auto temp = values;
 
-				clock_t start = clock();
+				const clock_t start = clock();
 				APSO X(values.data(), width, height);
-				clock_t end = clock();
+				const clock_t end = clock();
 				totalTime += end - start;
+
+				/*std::cout << '[';
+				for (size_t i = 0; i < std::min(width,height); ++i)
+					std::cout << '(' << X.results[i].x << ',' << X.results[i].y << ')' << (i+1 != std::min(width, height) ? ", " : "");
+				std::cout << "]\n";*/
 			} while (incrementValues(maxValue));
 
 			std::cout << totalTime / double(CLOCKS_PER_SEC) << '\n';
@@ -127,43 +161,15 @@ void exhaustiveTest(const size_t minWidth, const size_t minHeight, const size_t 
 	}
 }
 
-// Tests specific matrices.
-void specificTest() {
-	std::cout << "== Specific Tests ==\n\n";
-
-	std::vector<std::vector<unsigned char>> matrices = {
-		{0, 0,
-		 0, 0},
-
-		{0, 0, 0, 0,
-		 0, 0, 0, 0,
-		 0, 0, 0, 0,
-		 0, 0, 0, 1},
-
-		{0, 0, 0, 0, 0,
-		 0, 0, 0, 0, 0,
-		 0, 0, 1, 1, 1,
-		 0, 0, 1, 1, 1,
-		 0, 0, 1, 1, 1}
-	};
-
-	for (auto & matrix : matrices) {
-		APSO X(matrix.data(), size_t(sqrt(matrix.size())), size_t(sqrt(matrix.size())));
-		std::cout << "Results:\n";
-		X.printResults(std::cout);
-		std::cout << "Result Cost: " << size_t(X.resultCost(matrix.data())) << "\n\n";
-	}
-}
-
 int main() {
 	/*std::ofstream fout("times.csv");
 	std::ofstream matrix("matrix.csv");*/
 
-	speedTest(10000, 50, 50);
-	speedTest(100, 250, 250);
-	speedTest(10, 1000, 1000);
-	//exhaustiveTest(1, 1, 3, 3);
 	specificTest();
+	//speedTest(10000, 50, 50);
+	//speedTest(100, 250, 250);
+	//speedTest(10, 1000, 1000);
+	//exhaustiveTest(1, 1, 3, 3);
 
 	std::cout << "\a\aPress 'Enter' to exit";
 	std::cin.ignore();
