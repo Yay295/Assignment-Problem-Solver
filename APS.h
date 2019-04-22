@@ -1,6 +1,6 @@
 /*
 Assignment Problem Solver - Coded by Yay295
-Last Updated July 19, 2018
+Last Updated April 21, 2019
 
 
 Usage:
@@ -78,7 +78,7 @@ class APSO {
 		if (newWidth >= newHeight) { // width >= height -> do not transpose matrix
 			if (std::is_signed<T>::value) {
 				constexpr T max = std::numeric_limits<T>::max();
-				V<std::make_unsigned<T>::type> values(nSize);
+				V<typename std::make_unsigned<T>::type> values(nSize);
 				std::transform(newValues, newValues + nSize, values.begin(), [max](T x){return x + max;});
 				math(values, newWidth, newHeight, false);
 			} else math(V<T>(newValues, newValues + nSize), newWidth, newHeight, false);
@@ -93,12 +93,12 @@ class APSO {
 	// - a C++ vector of an unsigned integer type.
 	template<typename T>
 	APSO(V<T> & newValues, const size_t newWidth, const size_t newHeight) {
-		static_assert(!std::numeric_limits<T>::is_signed, "The value type used for the APSO's special contructor must be unsigned.");
+		static_assert(!std::numeric_limits<T>::is_signed, "The value type used for the APSO's special constructor must be unsigned.");
 
 		if (newWidth < newHeight) {
 			// Okay, it does technically create a copy here,
 			// but this copy is destroyed after it's been used.
-			newValues.swap(transposeToUnsigned(newValues.data(), newWidth, newHeight));
+			newValues = transposeToUnsigned(newValues.data(), newWidth, newHeight);
 			math(newValues, newHeight, newWidth, true);
 		} else math(newValues, newWidth, newHeight, false);
 	}
@@ -145,7 +145,7 @@ class APSO {
 		// should prevent this operation from being done if the values are already unsigned.
 		constexpr T max = std::numeric_limits<T>::is_signed ? std::numeric_limits<T>::max() : 0;
 
-		V<std::make_unsigned<T>::type> values;
+		V<typename std::make_unsigned<T>::type> values;
 		values.reserve(width*height);
 
 		for (size_t column = 0; column < width; ++column)
@@ -156,6 +156,10 @@ class APSO {
 	}
 
 
+	template<typename T>
+	void math(V<T> && values, const size_t & newWidth, const size_t & newHeight, const bool flip) {
+		math(values, newWidth, newHeight, flip);
+	}
 	template<typename T>
 	void math(V<T> & values, const size_t & newWidth, const size_t & newHeight, const bool flip) {
 		static_assert(!std::numeric_limits<T>::is_signed, "A signed value type was passed to the APSO's math() function.");
